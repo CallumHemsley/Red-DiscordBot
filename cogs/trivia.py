@@ -251,6 +251,7 @@ class TriviaSession():
         self.timer = int(time.perf_counter())
         msg = "**Question number {}!**\n\n{}".format(self.count, self.current_line.question)
         await self.bot.say(msg)
+        self.correct = False
 
         while self.status != "correct answer" and abs(self.timer - int(time.perf_counter())) <= self.settings["DELAY"]:
             if abs(self.timeout - int(time.perf_counter())) >= self.settings["TIMEOUT"]:
@@ -260,7 +261,6 @@ class TriviaSession():
             await asyncio.sleep(1) #Waiting for an answer or for the time limit
         if self.status == "correct answer": #here.+
             self.status = "new question"
-            self.correct = False
             await asyncio.sleep(3)
             if not self.status == "stop":
                 await self.new_question()
@@ -288,11 +288,13 @@ class TriviaSession():
         await self.bot.say(box(t, lang="diff"))
 
     async def check_answer(self, message):
+        print(self.correct)
         if message.author == self.bot.user:
             return
         elif self.current_line is None:
             return
         elif self.correct == True:
+            print(message)
             self.bot.delete_message(message)
             return
 
