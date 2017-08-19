@@ -19,7 +19,7 @@ DEFAULTS = {"MAX_SCORE"    : 10,
 TriviaLine = namedtuple("TriviaLine", "question answers")
 
 
-class Trivia:
+class Trivia: #test commit.
     """General commands."""
     def __init__(self, bot):
         self.bot = bot
