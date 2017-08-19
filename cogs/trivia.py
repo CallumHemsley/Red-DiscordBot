@@ -220,6 +220,7 @@ class TriviaSession():
         self.starter = message.author
         self.scores = Counter()
         self.status = "new question"
+        self.correct = False
         self.timer = None
         self.timeout = time.perf_counter()
         self.count = 0
@@ -259,6 +260,7 @@ class TriviaSession():
             await asyncio.sleep(1) #Waiting for an answer or for the time limit
         if self.status == "correct answer": #here.+
             self.status = "new question"
+            self.correct = False
             await asyncio.sleep(3)
             if not self.status == "stop":
                 await self.new_question()
@@ -290,6 +292,8 @@ class TriviaSession():
             return
         elif self.current_line is None:
             return
+        elif self.correct == True:
+            return
 
         self.timeout = time.perf_counter()
         has_guessed = False
@@ -309,6 +313,7 @@ class TriviaSession():
         if has_guessed:
             self.current_line = None
             self.status = "correct answer"
+            self.correct = True
             self.scores[message.author] += 1
             msg = "You got it {}! **+1** to you!".format(message.author.name)
             await self.bot.send_message(message.channel, msg)
