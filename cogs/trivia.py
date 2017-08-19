@@ -288,14 +288,12 @@ class TriviaSession():
         await self.bot.say(box(t, lang="diff"))
 
     async def check_answer(self, message):
-        print(self.correct)
         if message.author == self.bot.user:
             return
-        elif self.current_line is None:
-            return
         elif self.correct == True:
-            print(message)
-            self.bot.delete_message(message)
+            await self.bot.delete_message(message)
+            return
+        elif self.current_line is None:
             return
 
         self.timeout = time.perf_counter()
