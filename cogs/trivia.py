@@ -188,6 +188,8 @@ class Trivia: #test commit.
                 return t
         return None
 
+
+
     async def on_message(self, message):
         if message.author != self.bot.user:
             session = self.get_trivia_by_channel(message.channel)
@@ -256,7 +258,7 @@ class TriviaSession():
                 await self.stop_trivia()
                 return True
             await asyncio.sleep(1) #Waiting for an answer or for the time limit
-        if self.status == "correct answer":
+        if self.status == "correct answer": #here.+
             self.status = "new question"
             self.correct = False
             await asyncio.sleep(3)
