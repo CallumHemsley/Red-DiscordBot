@@ -291,6 +291,7 @@ class TriviaSession():
         elif self.current_line is None:
             return
         elif self.correct == True:
+            self.bot.delete_message(message)
             return
 
         self.timeout = time.perf_counter()
