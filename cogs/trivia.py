@@ -290,6 +290,8 @@ class TriviaSession():
             return
         elif self.current_line is None:
             return
+        elif self.correct == True:
+            return
 
         self.timeout = time.perf_counter()
         has_guessed = False
